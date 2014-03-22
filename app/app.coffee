@@ -31,10 +31,9 @@ server = http.createServer app
 
 app.configure ->
   app.set 'root', __dirname
-  app.set 'mongoDb', 'mongodb://ple.bli.ch/scrum_board_development'
   app.set 'mongoDbServer', 'ple.bli.ch'
-  app.set 'mongoDbDatabase', 'scrum_board_development'
-  app.set 'port', 8080
+  app.set 'mongoDbDatabase', 'scrumBoardPsc'
+  app.set 'port', 11111
 
 
   # Template engine
@@ -95,11 +94,6 @@ load('middelware')
   .then('routes')
   .into app
 
-
-###
-  Socket
-###
-require('./sockets/sockets')( app, server )
 
 ###
 # MongoDB Connection
