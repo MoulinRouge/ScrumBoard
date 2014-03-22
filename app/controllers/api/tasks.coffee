@@ -1,3 +1,4 @@
+_ = require 'underscore'
 module.exports = ( app ) ->
   Task = app.models.task.Task
   class TasksController
@@ -7,8 +8,16 @@ module.exports = ( app ) ->
       @desc     
     ###
     @index = ( req, res ) ->
+      if _.contains(["0", "1", "2"], req.query.status)
+        status = req.query.status
+      else
+        status = 0
+
+
       Task
-        .find({})
+        .find({
+          status: status
+          })
         .sort('-createdAt')
         .exec( (error, tasks) ->
           if !error

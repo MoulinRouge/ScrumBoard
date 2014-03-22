@@ -86,7 +86,7 @@ load('middelware')
 # MongoDB Connection
 ###
 mongoose.connect("mongodb://#{app.get 'mongoDbServer'}/#{app.get 'mongoDbDatabase'}" )
-
+mongoose.set('debug', true)
 
 
 
