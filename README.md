@@ -1,3 +1,4 @@
+
 # web-2-scrum-app
 ======================
 NodeJS Applikation mit einer Vielzahl von bereits konfigurierten Elementen. Unter anderem
@@ -21,3 +22,4 @@ Die JavaScript Bibliothek **UnderscoreJS** steht sowohl server- als auch clients
 
 ### Production
 **forever start server** im entsprechenden Verzeichnis ausführen.
+
