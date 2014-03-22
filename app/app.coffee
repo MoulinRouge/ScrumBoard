@@ -10,7 +10,6 @@ reload            = require 'reload'
 mongoose          = require 'mongoose'
 Mincer            = require 'mincer'
 less              = require 'less'
-passport          = require 'passport'
 MongoStore        = require('connect-mongo')(express)
 flash             = require 'connect-flash'
 
@@ -49,18 +48,6 @@ app.configure ->
   app.use express.bodyParser()
   app.use express.methodOverride()
   app.use express.cookieParser()
-  # Session store
-  app.use express.session(
-    secret: 'NodeScrumBoardApp'
-    store: new MongoStore(
-      db:     app.get 'mongoDbDatabase'
-      host:   app.get 'mongoDbServer'
-    )
-  )
-
-  # Passport
-  app.use passport.initialize()
-  app.use passport.session()
 
   app.use app.router
 
