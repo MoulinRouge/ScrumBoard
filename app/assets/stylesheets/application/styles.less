@@ -8,11 +8,21 @@ body {
   }
 
   /* Entfernen des Abstandes gegen oben für die ersten Überschriften in .well */
-  .well {
+  .panel {
     h1, h2, h3, h4, h5, h6 {
       &:first-child {
         margin-top: 0;
       }
     }
   }
+
+  .panel-heading {
+    margin-bottom: 10px;
+  }
+
+  .panel-content {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
 }

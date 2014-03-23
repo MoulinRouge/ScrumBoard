@@ -1,0 +1,39 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3>
+      {{task.label}} 
+      <small>
+        <span am-time-ago="task.updatedAt"></span>
+      </small>
+    </h3>
+    <h4>
+      Mitarbeiter: {{task.user}}, Aufwand: {{task.effort}} Tage
+    </h4>
+  </div>
+  <div class="panel-content">
+    <p>{{task.text}}</p>
+  </div>
+  <div class="panel-footer">
+    
+    <div class="row">
+      <div class="col-md-6">
+        <a class="btn btn-default" ng-click="taskBack(task)" ng-show="task.status > 0">
+          <i class="fa fa-angle-double-left" />
+        </a>
+
+        <a class="btn btn-default" ng-click="taskForward(task)" ng-show="task.status < 2">
+          <i class="fa fa-angle-double-right" />
+        </a>
+      </div>
+      <div class="col-md-6">
+        <a class="btn btn-danger pull-right" ng-click="deleteTask(task)">
+          <i class="fa fa-trash-o" />
+        </a>
+
+        <a class="btn btn-default pull-right" ng-click="updateTask(task)">
+          <i class="fa fa-edit" />
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

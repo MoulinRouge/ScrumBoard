@@ -48,98 +48,39 @@
 
 <div class="row">
   <div class="col-md-4">
-    <h2>ToDo</h2>
-    <div class="row">
-      <div class="col-md-12" ng-repeat="task in tasksToDo">
-        <div class="well">
-          <h3>
-            {{task.label}} 
-            <small>
-              <span am-time-ago="task.updatedAt"></span>
-            </small>
-          </h3>
-          <h4>
-            Mitarbeiter: {{task.user}}, Aufwand: {{task.effort}} Tage
-          </h4>
-          <p>{{task.text}}</p>
-
-          <a class="btn btn-default" ng-click="taskToProgress(task)">
-            <i class="fa fa-angle-double-right" />
-          </a>
-
-          <a class="btn btn-danger" ng-click="deleteTask(task)">
-            <i class="fa fa-trash-o" />
-          </a>
-
-          <a class="btn btn-default" ng-click="updateTask(task)">
-            <i class="fa fa-edit" />
-          </a>
+    <div class="panel panel-danger">
+      <div class="panel-heading">
+        <h2>ToDo</h2>
+      </div>
+      <div class="panel-content">
+        <div class="row">
+          <div class="col-md-12" ng-repeat="task in tasksToDo" ng-include="'angular/frontend/scrum/tasks/_task.html'" />
         </div>
       </div>
     </div>
   </div>
+
   <div class="col-md-4">
-    <h2>In Progress</h2>
-    <div class="row">
-      <div class="col-md-12" ng-repeat="task in tasksInProgress">
-        <div class="well">
-          <h3>
-            {{task.label}} 
-            <small>
-              <span am-time-ago="task.updatedAt"></span>
-            </small>
-          </h3>
-          <h4>
-            Mitarbeiter: {{task.user}}, Aufwand: {{task.effort}} Tage
-          </h4>
-          <p>{{task.text}}</p>
-
-          <a class="btn btn-default" ng-click="taskToToDo(task)">
-            <i class="fa fa-angle-double-left" />
-          </a>
-
-          <a class="btn btn-default" ng-click="taskToDone(task)">
-            <i class="fa fa-angle-double-right" />
-          </a>
-
-          <a class="btn btn-danger" ng-click="deleteTask(task)">
-            <i class="fa fa-trash-o" />
-          </a>
-
-          <a class="btn btn-default" ng-click="updateTask(task)">
-            <i class="fa fa-edit" />
-          </a>
+    <div class="panel panel-warning">
+      <div class="panel-heading">
+        <h2>In Progress</h2>
+      </div>
+      <div class="panel-content">
+        <div class="row">
+          <div class="col-md-12" ng-repeat="task in tasksInProgress" ng-include="'angular/frontend/scrum/tasks/_task.html'" />
         </div>
       </div>
     </div>
   </div>
+
   <div class="col-md-4">
-    <h2>Done</h2>
-    <div class="row">
-      <div class="col-md-12" ng-repeat="task in tasksDone">
-        <div class="well">
-          <h3>
-            {{task.label}} 
-            <small>
-              <span am-time-ago="task.updatedAt"></span>
-            </small>
-          </h3>
-          <h4>
-            Mitarbeiter: {{task.user}}, Aufwand: {{task.effort}} Tage
-          </h4>
-          <p>{{task.text}}</p>
-
-          <a class="btn btn-default" ng-click="taskToProgress(task)">
-            <i class="fa fa-angle-double-left" />
-          </a>
-
-          <a class="btn btn-danger" ng-click="deleteTask(task)">
-            <i class="fa fa-trash-o" />
-          </a>
-
-          <a class="btn btn-default" ng-click="updateTask(task)">
-            <i class="fa fa-edit" />
-          </a>
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <h2>Done</h2>
+      </div>
+      <div class="panel-content">
+        <div class="row">
+          <div class="col-md-12" ng-repeat="task in tasksDone" ng-include="'angular/frontend/scrum/tasks/_task.html'" />
         </div>
       </div>
     </div>

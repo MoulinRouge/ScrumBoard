@@ -18,36 +18,25 @@ application.controller 'ScrumTasksController', ['$scope', '$rootScope', 'Task', 
   $scope.isUpdate = false
 
   ###
-    @desc Diese Funktion schiebt einen Task in den Status "Progress"
+    @desc Diese Funktion schiebt einen Task einen Status zurück
     @date 2014-03-23
-    @name taskToProgress
+    @name taskForward
     @parms {Task} task
   ###
-  $scope.taskToProgress = (task) ->
+  $scope.taskForward = (task) ->
     task.id = task._id
-    task.status = 1
+    task.status = task.status + 1
     save(task)
 
   ###
-    @desc Diese Funktion schiebt einen Task in den Status "Done"
+    @desc Diese Funktion schiebt einen Task in den nächsten Status
     @date 2014-03-23
-    @name taskToProgress
+    @name taskBack
     @parms {Task} task
   ###
-  $scope.taskToDone = (task) ->
+  $scope.taskBack = (task) ->
     task.id = task._id
-    task.status = 2
-    save(task)
-
-  ###
-    @desc Diese Funktion schiebt einen Task in den Status "ToDo"
-    @date 2014-03-23
-    @name taskToProgress
-    @parms {Task} task
-  ###
-  $scope.taskToToDo = (task) ->
-    task.id = task._id
-    task.status = 0
+    task.status = task.status - 1 
     save(task)
 
   ###
