@@ -77,15 +77,19 @@ application.controller 'ScrumTasksController', ['$scope', '$rootScope', 'Task', 
     @parms {Task} task
   ###
   $scope.deleteTask = (task) ->
-    task.id = task._id
-    task.$delete ->
-      console.log "success"
-      $scope.tasksToDo = Task.query( { status: 0 } )
-      $scope.tasksInProgress = Task.query( {status: 1 } )
-      $scope.tasksDone = Task.query( {status: 2 } ) 
-      $scope.newTask()
-    , ( err ) ->
-      console.log err
+    deleteObject = confirm('Are you sure?')
+
+    if deleteObject
+      task.id = task._id
+      task.$delete ->
+        console.log "success"
+        $scope.tasksToDo = Task.query( { status: 0 } )
+        $scope.tasksInProgress = Task.query( {status: 1 } )
+        $scope.tasksDone = Task.query( {status: 2 } ) 
+        $scope.newTask()
+      , ( err ) ->
+        console.log err
+      
 
   ###
     @desc Diese Funktion erstellt einen Task und speichert ihn
