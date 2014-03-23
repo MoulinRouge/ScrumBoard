@@ -1,40 +1,44 @@
-<pre> {{tasksToDo}} </pre>
 
 <div class="row">
   <div class="col-md-12">
-    <h3>Neuen Task erfassen</h3>
+    <h3>{{title}}</h3>
     <form role="form" ng-submit="createTask()" class="well">
       <div class="form-group">
-        <label class="form-label" for="newTaskLabel">Titel</label>
-        <input class="form-control" type="text" required autofocus="true" ng-model="newTask.label" id="newTaskLabel" name="newTaskLabel" placeholder="What needs to be done?" />
+        <label class="form-label" for="formTaskLabel">Titel</label>
+        <input class="form-control" type="text" required autofocus="true" ng-model="formTask.label" id="formTaskLabel" name="formTaskLabel" placeholder="What needs to be done?" />
       </div>
       <div class="form-group">
-        <label class="form-label" for="newTaskText">Text</label>
-        <textarea class="form-control" ng-model="newTask.text" id="newTaskText" name="newTaskText"></textarea>
+        <label class="form-label" for="formTaskText">Text</label>
+        <textarea class="form-control" ng-model="formTask.text" id="formTaskText" name="formTaskText"></textarea>
       </div>
 
       <div class="row">
         <div class="col-sm-9">
           <div class="form-group">
-            <label for="newTaskEmployee" class="form-label">Mitarbeiter</label>
-            <input class="form-control" type="text" required ng-model="newTask.employee" id="newTaskEmployee" name="newTaskEmployee" placeholder="Mitarbeiter" />
+            <label for="formTaskUser" class="form-label">Mitarbeiter</label>
+            <input class="form-control" type="text" required ng-model="formTask.user" id="formTaskUser" name="formTaskUser" placeholder="Mitarbeiter" />
           </div>
         </div>
         <div class="col-sm-3">
           <div class="form-group">
-            <label for="newTaskEffort" class="form-label">Aufwand</label>
-            <input class="form-control" type="number" required value="0" ng-model="newTask.effort" id="newTaskEffort" name="newTaskEffort" placeholder="Aufwand" />
+            <label for="formTaskEffort" class="form-label">Aufwand</label>
+            <input class="form-control" type="number" required value="0" ng-model="formTask.effort" id="formTaskEffort" name="formTaskEffort" placeholder="Aufwand" />
           </div>
         </div>
       </div>
 
       <div class="form-group">
         <button type="submit"class="btn btn-primary">
-          <i class="fa fa-save"></i>
+          <i class="fa fa-save" />
           Save
         </button>
-        <button type="reset"class="btn btn-default">
+        <button type="reset" class="btn btn-default">
+          <i class="fa fa-eraser" />
           Reset
+        </button>
+        <button class="btn btn-default" ng-click="newTask()" ng-show="isUpdate">
+        <i class="fa fa-flash" />
+          Abbrechen
         </button>
       </div>
     </form>
@@ -48,21 +52,27 @@
     <div class="row">
       <div class="col-md-12" ng-repeat="task in tasksToDo">
         <div class="well">
-          <h4>
-            {{task.label}}
+          <h3>
+            {{task.label}} 
             <small>
-              @{{task.employee}} ({{task.effort}})
               <span am-time-ago="task.updatedAt"></span>
             </small>
+          </h3>
+          <h4>
+            Mitarbeiter: {{task.user}}, Aufwand: {{task.effort}} Tage
           </h4>
           <p>{{task.text}}</p>
 
           <a class="btn btn-default" ng-click="taskToProgress(task)">
-            <i class="fa fa-angle-double-right"></i>
+            <i class="fa fa-angle-double-right" />
           </a>
 
-          <a class="btn btn-danger" ng-click="destroyTask(task, tasksToDo)">
-            <i class="fa fa-trash-o"></i>
+          <a class="btn btn-danger" ng-click="deleteTask(task)">
+            <i class="fa fa-trash-o" />
+          </a>
+
+          <a class="btn btn-default" ng-click="updateTask(task)">
+            <i class="fa fa-edit" />
           </a>
         </div>
       </div>
@@ -73,21 +83,31 @@
     <div class="row">
       <div class="col-md-12" ng-repeat="task in tasksInProgress">
         <div class="well">
-          <h4>
-            {{task.label}}
+          <h3>
+            {{task.label}} 
             <small>
-              @{{task.employee}} ({{task.effort}})
               <span am-time-ago="task.updatedAt"></span>
             </small>
+          </h3>
+          <h4>
+            Mitarbeiter: {{task.user}}, Aufwand: {{task.effort}} Tage
           </h4>
           <p>{{task.text}}</p>
 
-          <a class="btn btn-default" ng-click="taskToDone(task)">
-            <i class="fa fa-angle-double-right"></i>
+          <a class="btn btn-default" ng-click="taskToToDo(task)">
+            <i class="fa fa-angle-double-left" />
           </a>
 
-          <a class="btn btn-danger" ng-click="destroyTask(task, tasksInProgress)">
-            <i class="fa fa-trash-o"></i>
+          <a class="btn btn-default" ng-click="taskToDone(task)">
+            <i class="fa fa-angle-double-right" />
+          </a>
+
+          <a class="btn btn-danger" ng-click="deleteTask(task)">
+            <i class="fa fa-trash-o" />
+          </a>
+
+          <a class="btn btn-default" ng-click="updateTask(task)">
+            <i class="fa fa-edit" />
           </a>
         </div>
       </div>
@@ -98,21 +118,27 @@
     <div class="row">
       <div class="col-md-12" ng-repeat="task in tasksDone">
         <div class="well">
-          <h4>
-            {{task.label}}
+          <h3>
+            {{task.label}} 
             <small>
-              @{{task.employee}} ({{task.effort}})
               <span am-time-ago="task.updatedAt"></span>
             </small>
+          </h3>
+          <h4>
+            Mitarbeiter: {{task.user}}, Aufwand: {{task.effort}} Tage
           </h4>
           <p>{{task.text}}</p>
 
-          <a class="btn btn-default" ng-click="taskBackToInProgress(task)">
-            <i class="fa fa-angle-double-left"></i>
+          <a class="btn btn-default" ng-click="taskToProgress(task)">
+            <i class="fa fa-angle-double-left" />
           </a>
 
-          <a class="btn btn-danger" ng-click="destroyTask(task, tasksDone)">
-            <i class="fa fa-trash-o"></i>
+          <a class="btn btn-danger" ng-click="deleteTask(task)">
+            <i class="fa fa-trash-o" />
+          </a>
+
+          <a class="btn btn-default" ng-click="updateTask(task)">
+            <i class="fa fa-edit" />
           </a>
         </div>
       </div>

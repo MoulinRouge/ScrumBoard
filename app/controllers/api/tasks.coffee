@@ -33,7 +33,15 @@ module.exports = ( app ) ->
       @desc     
     ###
     @show = ( req, res ) ->
-      res.json { error: false, message: 'GET: api/show'}
+      Task
+        .findById(req.params.id)
+        .exec( (error, task) ->
+          if !error
+            res.json task
+          else
+            res.status 404
+            res.send false
+        )
 
     ###
       @name     create
@@ -41,7 +49,20 @@ module.exports = ( app ) ->
       @desc     
     ###
     @create = ( req, res ) ->
-      res.json { error: false, message: 'GET: api/create'}
+      task = new Task
+
+      task.label = req.body.label
+      task.text = req.body.text
+      task.effort = req.body.effort
+      task.user = req.body.user
+      task.status = 0
+
+      task.save ( err ) ->
+        if !err
+          res.json task
+        else
+          res.status 406
+          res.send false
 
     ###
       @name     update
@@ -49,7 +70,26 @@ module.exports = ( app ) ->
       @desc     
     ###
     @update = ( req, res ) ->
-      res.json { error: false, message: 'GET: api/update'}
+
+      console.log req.body
+      Task.findById( req.params.id )
+      .exec( ( err, task ) ->
+        if not err
+          task.label = req.body.label
+          task.text = req.body.text
+          task.user = req.body.user
+          task.effort = req.body.effort
+          task.status = req.body.status
+          task.save ( err ) ->
+            if not err
+              res.redirect "/api/tasks/#{req.params.id}"
+            else
+              console.log err
+              res.status 500
+              res.json err
+        else
+          res.status 404
+    )
 
     ###
       @name     delete
@@ -57,4 +97,12 @@ module.exports = ( app ) ->
       @desc     
     ###
     @delete = ( req, res ) ->
-      res.json { error: false, message: 'GET: api/delete'}
+      console.log req.params
+      Task.remove
+        _id: req.params.id, 
+        ( err ) ->
+          if !err
+            res.json true
+          else
+            res.status 500
+            res.json { error: true, message: err}

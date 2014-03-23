@@ -3,7 +3,7 @@ module.exports = ( app ) ->
   app.get 		'/api/tasks',                                	app.controllers.api.tasks.index
   app.get 		'/api/tasks/:id',                            	app.controllers.api.tasks.show
   app.post 		'/api/tasks',                            	 	app.controllers.api.tasks.create
-  app.put 		'/api/tasks/:id',                            	app.controllers.api.tasks.update
+  app.post 		'/api/tasks/:id',                            	app.controllers.api.tasks.update
   app.delete 	'/api/tasks/:id',                         		app.controllers.api.tasks.delete
 
   # Alle anderen Routen abfangen
