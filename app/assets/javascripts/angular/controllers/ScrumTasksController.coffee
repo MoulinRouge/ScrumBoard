@@ -53,12 +53,7 @@ application.controller 'ScrumTasksController', ['$scope', '$rootScope', 'Task', 
     #auch in der Taskliste noch nicht angepasst werden (dies verhindert, dass ein Nutzer
     #das Gefühl haben könnte, dass der Task bereits gespeichert wurde)
     $scope.title = "Task '" + task.label + "' editieren"
-    $scope.formTask._id = task._id
-    $scope.formTask.label = task.label
-    $scope.formTask.text = task.text
-    $scope.formTask.status = task.status
-    $scope.formTask.effort = task.effort
-    $scope.formTask.user = task.user
+    $scope.formTask = _.clone(task)
 
   ###
     @desc Diese Funktion leert die Eingabemaske für einen neuen Task

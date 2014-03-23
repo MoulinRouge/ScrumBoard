@@ -16,7 +16,8 @@
     "optimist": "~0.6.1",
     "reload": "^0.1.0",
     "stylus": "^0.42.3",
-    "underscore": "^1.6.0"
+    "underscore": "^1.6.0",
+    "jasmine-expect": "^1.21.0"
   },
   "name": "scrum-board",
   "private": true,
